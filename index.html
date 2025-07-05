@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎶 My Favorite Songs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background: #111827;
+      margin: 0;
+      font-size: 2rem;
+      color: #facc15;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .search-box input {
+      padding: 12px 20px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: #333;
+      color: #f5f5f5;
+    }
+
+    .song-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .song-list li {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .song-list a.lyric-link {
+      text-decoration: none;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .song-list a.lyric-link:hover {
+      color: #facc15;
+    }
+
+    .play-button {
+      padding: 8px 14px;
+      background-color: #22c55e;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .play-button:hover {
+      background-color: #16a34a;
+    }
+
+    @media (max-width: 600px) {
+      .search-box input {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 My Favorite Songs</h1>
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search for a song...">
+    </div>
+    <ul class="song-list" id="songList">
+      <!-- Songs will be inserted here -->
+    </ul>
+  </div>
+
+  <script>
+    const songs = [
+      { name: "Hoshwalon ko khabar kya", lyrics: "https://www.filmyquotes.com/songs/1322", youtube: "https://youtu.be/ag3ENMEV89o" },
+      { name: "Zindagi ki na tooti ladi", lyrics: "https://www.filmyquotes.com/songs/2837", youtube: "https://youtu.be/VsRcES6sfi8" },
+      { name: "Chandi jaisa rang hai", lyrics: "https://www.filmyquotes.com/songs/82", youtube: "https://youtu.be/G4NAKKy5k0g" },
+      { name: "Kya hua tera vaada", lyrics: "https://www.filmyquotes.com/songs/4200", youtube: "https://youtu.be/cIVkYSm7Orw" },
+      { name: "Mera dil bhi kitna pagal hai", lyrics: "https://www.filmyquotes.com/songs/815", youtube: "https://youtu.be/DIvHIjOYq3U" },
+      { name: "Jeeye to jeeye kaise", lyrics: "https://www.filmyquotes.com/songs/820", youtube: "https://youtu.be/GsMnhtOFHYw" },
+      { name: "O mere dil ke chain", lyrics: "https://www.filmyquotes.com/songs/3865", youtube: "https://youtu.be/-Px0efU00uQ" },
+      { name: "Ye shaam mastani", lyrics: "https://www.filmyquotes.com/songs/1217", youtube: "https://youtu.be/lbfWsIpXsCA" },
+      { name: "Ek pyar ka nagma hai", lyrics: "https://www.filmyquotes.com/songs/2971", youtube: "https://youtu.be/HD6JPjWF9z4" },
+      { name: "Mohabbat bade kam ki", lyrics: "https://www.filmyquotes.com/songs/1464", youtube: "https://youtu.be/eA4hWjEfDpk" },
+      { name: "In ankhon ki masti", lyrics: "https://www.filmyquotes.com/songs/2106", youtube: "https://youtu.be/pwsjRraWgdA" },
+      { name: "Baahon mein chale aao", lyrics: "https://www.filmyquotes.com/songs/4140", youtube: "https://youtu.be/_uzRGxe0LUs" },
+      { name: "Zindagi ka safar", lyrics: "https://www.filmyquotes.com/songs/1678", youtube: "https://youtu.be/9XOnMlK5WBY" },
+      { name: "Pal pal dil ke paas", lyrics: "https://www.filmyquotes.com/songs/3246", youtube: "https://youtu.be/AMuRRXCuy-4" },
+      { name: "Mujhe teri mohabbat ka", lyrics: "https://www.filmyquotes.com/songs/3761", youtube: "https://youtu.be/Yru8qG-cIMc" },
+      { name: "Kora kagaz tha ye man", lyrics: "https://www.filmyquotes.com/songs/1396", youtube: "https://youtu.be/j7TM2ccOGbU" },
+      { name: "Jhil mil sitaaron ka", lyrics: "https://www.filmyquotes.com/songs/3410", youtube: "https://youtu.be/v13cUeX6_co" },
+      { name: "Gaata rahe mera dil", lyrics: "https://www.filmyquotes.com/songs/1247", youtube: "https://youtu.be/ayi7A7LK2sQ" },
+      { name: "Kabhi kabhi mere dil mein", lyrics: "https://www.filmyquotes.com/songs/1255", youtube: "https://youtu.be/-W2dagktUp0" },
+      { name: "Khusiyon ka din aaya hai", lyrics: "https://www.filmyquotes.com/songs/1988", youtube: "https://youtu.be/VbSEmeAFOP8" },
+      { name: "Uden jab jab zulfein teri", lyrics: "https://www.filmyquotes.com/songs/2741", youtube: "https://youtu.be/i8cm_ide9EY" },
+      { name: "Teri bindiya re", lyrics: "https://www.filmyquotes.com/songs/1347", youtube: "https://youtu.be/DRaVzCwkl98" },
+      { name: "Abhi Saans lene ki", lyrics: "https://www.filmyquotes.com/songs/2234", youtube: "https://youtu.be/yZDTb2gSBgg" },
+      { name: "Teri isi ada pe", lyrics: "https://www.filmyquotes.com/songs/2014", youtube: "https://youtu.be/NrDzVdnVyx8" }
+    ];
+
+    const songList = document.getElementById('songList');
+
+    songs.forEach(song => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <a class="lyric-link" href="${song.lyrics}" target="_blank">🎵 ${song.name}</a>
+        <a class="play-button" href="${song.youtube}" target="_blank">▶ Play</a>
+      `;
+      songList.appendChild(li);
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      const items = songList.getElementsByTagName('li');
+      Array.from(items).forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(filter) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
